@@ -1,0 +1,89 @@
+
+.container{
+width:80%;
+border: 1px 1px 1px 1px solid black;
+margin:auto;
+font-family: calibri;
+border: 1px dotted black;
+background: rgba(255,255,255,0.2);
+margin-top:50%;
+padding:30px;
+}
+
+
+
+@media screen and (min-width:700px){
+
+.container {width:40%;
+margin-top:10%;
+}
+.inside{
+margin-left:20%;
+margin-right:20%;
+}
+}
+
+h2{
+font-family: monospace ;
+margin:10px;
+margin-bottom: 40px;
+
+}
+
+.nameCalss {
+display:flex;
+}
+
+.nameField{
+
+margin:10px;
+max-height: 40px;
+}
+
+.showCount{
+margin-left:30px;
+border-radius: 3px;
+font-size:2.2em;
+font-weight:bolder;
+color: rgba(0,0, 0,0.7);
+font-family:courier;
+margin-top: 5px;
+}
+
+.radioButtons{
+display: flex;
+margin:10px;
+}
+
+button{
+margin:10px;
+color: white;
+padding: 10px;
+border: none;
+margin-bottom:15px;
+border-radius: 5px;
+
+}
+
+.submit {
+background-color: rgba(0,195,0,0.63);
+
+}
+
+.reset {
+background-color: rgba(195,0,0,0.63);
+}
+
+.message{
+
+margin:10px;
+padding-bottom:30px;
+font-size:2em;
+margin-top:10px;
+
+}
+
+.error{
+color: red;
+}
+
