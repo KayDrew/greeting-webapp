@@ -1,8 +1,8 @@
- let names = {};
-let usersGreeted = 0;
 
- export default function greetName() {
 
+export default function greetName() {
+	let names = {};
+	let usersGreeted = 0;
 	var name = "";
 	var checkError = "";
 	var userExists = false;
@@ -33,10 +33,22 @@ let usersGreeted = 0;
 
 		if (input && regex.test(input.trim())) {
 
+			var cap = "";
+			var low = "";
+
+			for (let i = 0; i < input.length - 1; ++i) {
+
+				cap = input.charAt(0).toUpperCase();
+				low += input.charAt(i + 1).toLowerCase();
+			}
+
+			name = cap + low;
 
 			var lowInput = input.trim().toLowerCase();
+			isInvalidName = false;
 
 			if (names.hasOwnProperty(lowInput)) {
+
 
 				userExists = true;
 
@@ -49,7 +61,7 @@ let usersGreeted = 0;
 			}
 
 			checkError = "";
-			name = input;
+
 
 
 
@@ -76,7 +88,6 @@ let usersGreeted = 0;
 
 		return userExists;
 	}
-
 	function getName() {
 
 		return name;
@@ -93,25 +104,21 @@ let usersGreeted = 0;
 
 				if (language === lang.language) {
 
-					
+					if (!userExists) {
 
-						if (userExists === false) {
-				
-				
-							if (usersGreeted === null || usersGreeted === 0) {
-								usersGreeted = 1;
-							} else {
-								usersGreeted++;
-							}
-				
-							
-				
+						if (usersGreeted === 0 || usersGreeted === null) {
+							usersGreeted = 1;
+
 						}
-				
+
+						else {
+							usersGreeted++;
+
+						}
 					}
 
 					return lang.greeting + " " + name;
-				
+				}
 
 			}
 
@@ -125,6 +132,7 @@ let usersGreeted = 0;
 		else if (!name && !language) {
 			checkError = "Please enter name and select a language";
 		}
+
 
 
 		return null;
