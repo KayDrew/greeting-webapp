@@ -1,42 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
- <link rel="stylesheet" href="css/greet.css"/>
- </head>
- <body>
- 	<div class="container">
-       <h2>Greeting In Three(3) Different Languages. </h2>
-       <form>
-       	    <p class="error"></p>
-      <div class="nameCalss">
-      <input  class="nameField" placeholder="enter your name"  id="name"/>
-  
-      <p  class="showCount">0</p>
-  </div>
-  <p class="controls"></p>
-  <form class="form">
-<div class="radioButtons">
- <input type="radio"  name="language"  id="tswana" value="Setswana"> 
- 	<label for="tswana"> Setswana</label>
-  <input type="radio"  name="language" id="swahili" value="Swahili">
-  		<label for="swahili"> Swahili</label>
-  	 <input type="radio"  name="language"  id="isiNdebele" value="IsiNdebele">
-  		<label for="isiNdebele"> isiNdebele</label>
-  </div>
-          
-   <div class="buttons">
-  <button class="submit" type="button">Greet Me</button>
-    <button class="reset" type="button">Reset</button>
-  </div>
-  </form>
-     <p class="message"></p>
-     </div>
+<h1>Greeting In Three(3) Languages</h1>
 
-</body>
-<script src="js/greet.js" charset="utf-8"></script>
-<script src="js/greetDOM.js" charset="utf-8"></script>
-
- </html>
+<form action="/names" method="POST">
+<p>{{error}}</p>
+<input name="username" type="text"><br><br>
+<input type="radio" name="language" value="Setswana"/><span>Setswana</span>
+<input type="radio" name="language" value="Swahili"/><span>Swahili</span>
+<input type="radio" name="language" value="IsiNdebele"/><span>IsiNdebele</span><br><br>
+<button type="submit" name="button">greet</button>
+<button type="submit" name="button">reset</button>
+<p>{{greeting}}</p>
+</form>

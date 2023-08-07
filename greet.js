@@ -1,160 +1,97 @@
+export default function greet(){
 
 
-export default function greetName() {
-	let names = {};
-	let usersGreeted = 0;
-	var name = "";
-	var checkError = "";
-	var userExists = false;
-	var isInvalidName = false;
+	let name="";
+	let error="";
+	let greetedNames={};
+	let regex=/[A-Za]/g;
+	let greeting="";
+	let count=0;
+	let languages={"Swahili":"Habari",
+"Setswana":"Dumela",
+"IsiNdebele":"Akwande"}
 
+	function setName(input){
 
-	let greetings = [
-		{
-			language: "Setswana",
-			greeting: "Dumela"
-		},
+		if(input){
 
-		{
-			language: "Swahili",
-			greeting: "Habari"
-		},
+			if(regex.test(input.toUpperCase())){
 
-		{
-			language: "IsiNdebele",
-			greeting: "Akwande"
-		}
-	];
+				//console.log("pass")
+			
+		
+			if(!greetedNames.hasOwnProperty(input)){
 
-	let regex = /^([a-zA-Z]{3,})$/;
-
-	function setName(input) {
-
-
-		if (input && regex.test(input.trim())) {
-
-			var cap = "";
-			var low = "";
-
-			for (let i = 0; i < input.length - 1; ++i) {
-
-				cap = input.charAt(0).toUpperCase();
-				low += input.charAt(i + 1).toLowerCase();
-			}
-
-			name = cap + low;
-
-			var lowInput = input.trim().toLowerCase();
-			isInvalidName = false;
-
-			if (names.hasOwnProperty(lowInput)) {
-
-
-				userExists = true;
+		name=input.toUpperCase();
+		error="";
+		greetedNames.name=1;
 
 			}
-
-			else {
-
-				userExists = false;
-				names[lowInput] = "greeted";
+			else{
+				greetedNames.name+=1;
 			}
 
-			checkError = "";
-
-
-
-
-		}
-		else if (!input) {
-
-			name = "";
-			checkError = "Please enter a  name";
 		}
 
-		else if (input && !regex.test(input.trim())) {
-
-			name = "";
-			isInvalidName = true;
-			checkError = "Please enter a valid name";
+		else{
+			error="Name should only contain letters";
 		}
 
 	}
 
+		else{
 
+			error="Please enter a name";
+		}
 
-
-	function getUserExists() {
-
-		return userExists;
 	}
-	function getName() {
+
+	function getName(){
 
 		return name;
 	}
 
-	function getGreetings(language) {
+	function getError(){
 
-		if (language && name && !isInvalidName) {
-
-			for (let i = 0; i < greetings.length; ++i) {
-
-				var lang = greetings[i];
-
-
-				if (language === lang.language) {
-
-					if (!userExists) {
-
-						if (usersGreeted === 0 || usersGreeted === null) {
-							usersGreeted = 1;
-
-						}
-
-						else {
-							usersGreeted++;
-
-						}
-					}
-
-					return lang.greeting + " " + name;
-				}
-
-			}
-
-		}
-
-		else if (name && !language) {
-
-			checkError = "Please select a language";
-		}
-
-		else if (!name && !language) {
-			checkError = "Please enter name and select a language";
-		}
-
-
-
-		return null;
+		return error;
 	}
 
+	function setGreeting(language){
 
-	function getCheckError() {
+if(getName()){
 
-		return checkError;
+	if(languages.hasOwnProperty(language)){
+
+		greeting=languages[language]+" "+name;
 	}
 
+	else{
 
-
-	return {
-		setName,
-		getGreetings,
-		getCheckError,
-		getUserExists,
-		getName
-
+		error="Please select a language";
+		greeting="";
 	}
 
 }
 
+else{
 
+	greeting="no name"
+}
+	}
+
+
+
+	function getGreeting(){
+
+		return greeting;
+	}
+
+	return{
+
+		setName,
+		getName,
+		getError,
+		setGreeting,
+		getGreeting
+	}
+}
