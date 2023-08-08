@@ -19,16 +19,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+app.use(session({secret: "no secret",
+resave:false,
+saveInitialized:false}));
+
+app.use(flash());
 
 const user=greet();
 
 
 app.get('/', function (req, res) {
+    
+ req.flash("error",  user.getError());
 
     res.render('index',{
-
-       error:user.getError(),
        greeting: user.getGreeting(),
+        title: "Home"   
     
     });
 
