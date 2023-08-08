@@ -1,7 +1,10 @@
 <h1>Greeting In Three(3) Languages</h1>
-
+{{#if messages.error}}
+<div class="error">
+    <h1> {{messages.error}}</h1>
+</div>
+{{/if}}
 <form action="/names" method="POST">
-<p>{{error}}</p>
 <input name="username" type="text"><br><br>
 <input type="radio" name="language" value="Setswana"/><span>Setswana</span>
 <input type="radio" name="language" value="Swahili"/><span>Swahili</span>
