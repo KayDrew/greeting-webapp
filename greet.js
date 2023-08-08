@@ -35,6 +35,7 @@ export default function greet(){
 
 		else{
 			error="Name should only contain letters";
+			name="";
 		}
 
 	}
@@ -42,6 +43,7 @@ export default function greet(){
 		else{
 
 			error="Please enter a name";
+			name="";
 		}
 
 	}
@@ -75,7 +77,7 @@ if(getName()){
 
 else{
 
-	greeting="no name"
+	greeting="";
 }
 	}
 
