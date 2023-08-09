@@ -1,99 +1,111 @@
-export default function greet(){
+export default function greet() {
 
 
-	let name="";
-	let error="";
-	let greetedNames={};
-	let regex=/[A-Za]/g;
-	let greeting="";
-	let count=0;
-	let languages={"Swahili":"Habari",
-"Setswana":"Dumela",
-"IsiNdebele":"Akwande"}
+	let name = "";
+	let error = "";
+	let greetedNames = {};
+	let regex = /^([a-zA-Z]{3,})$/;
+	let greeting = "";
+	let count = 0;
+	let languages = {
+		"Swahili": "Habari",
+		"Setswana": "Dumela",
+		"IsiNdebele": "Akwande"
+	}
 
-	function setName(input){
+	function setName(input) {
 
-		if(input){
+		if (input) {
 
-			if(regex.test(input.toUpperCase())){
+			if (regex.test(input.toUpperCase())) {
 
-				//console.log("pass")
-			
-		
-			if(!greetedNames.hasOwnProperty(input)){
-
-		name=input.toUpperCase();
-		error="";
-		greetedNames.name=1;
+					name = input.toUpperCase();
+					error = "";
 
 			}
-			else{
-				greetedNames.name+=1;
+
+			else {
+				error = "Name should only contain letters";
+				name = "";
 			}
 
 		}
 
-		else{
-			error="Name should only contain letters";
-			name="";
+		else {
+
+			error = "Please enter a name";
+			name = "";
 		}
 
 	}
 
-		else{
-
-			error="Please enter a name";
-			name="";
-		}
-
-	}
-
-	function getName(){
+	function getName() {
 
 		return name;
 	}
 
-	function getError(){
+	function getError() {
 
 		return error;
 	}
 
-	function setGreeting(language){
+	function setGreeting(language) {
 
-if(getName()){
+		if (getName()) {
 
-	if(languages.hasOwnProperty(language)){
+			if (languages.hasOwnProperty(language)) {
 
-		greeting=languages[language]+" "+name;
+				greeting = languages[language] + " " + name;
+
+				
+				if (!greetedNames.hasOwnProperty(name)) {
+					greetedNames[name]= 1;
+					console.log(greetedNames);
+					count++;
+				}
+
+
+				else {
+					greetedNames[name] += 1;
+				}
+
+				
+			}
+
+			else {
+
+				error = "Please select a language";
+				greeting = "";
+			}
+
+		}
+
+		else {
+
+			greeting = "";
+		}
 	}
 
-	else{
-
-		error="Please select a language";
-		greeting="";
-	}
-
-}
-
-else{
-
-	greeting="";
-}
-	}
 
 
-
-	function getGreeting(){
+	function getGreeting() {
 
 		return greeting;
 	}
 
-	return{
+
+	function getCount() {
+
+		return count;
+	}
+
+	return {
 
 		setName,
 		getName,
 		getError,
 		setGreeting,
-		getGreeting
+		getGreeting,
+		getCount
 	}
 }

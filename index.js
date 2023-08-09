@@ -1,10 +1,10 @@
-import  'dotenv/config';
+import 'dotenv/config';
 //console.log(process.env.DATABASE_URL);
-import express  from 'express';
+import express from 'express';
 import bodyParser from 'body-parser';
 import { engine } from 'express-handlebars';
 import greet from './greet.js';
-import flash  from 'express-flash';
+import flash from 'express-flash';
 import session from 'express-session';
 
 
@@ -22,43 +22,46 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.use(session({secret: "no secret",
-resave:false,
-saveInitialized:false}));
+app.use(session({
+  secret: "no secret",
+  resave: false,
+  saveInitialized: false
+}));
 
 app.use(flash());
 
 
-const user=greet();
+const user = greet();
 
 
 app.get('/', function (req, res) {
-    
- req.flash("error",  user.getError());
+
+  req.flash("error", user.getError());
 
 
-    res.render('index',{
-       greeting: user.getGreeting(),
-        title: "Home"   
-    
-    });
+  res.render('index', {
+    greeting: user.getGreeting(),
+    title: "Home",
+    count: user.getCount()
+
+  });
 
 }
 );
 
-app.post('/names', function(req,res){
+app.post('/names', function (req, res) {
 
   user.setName(req.body.username);
-  let language=req.body.language;
+  let language = req.body.language;
 
   user.setGreeting(language);
   console.log(user.getGreeting())
   user.getError();
   res.redirect('/');
- 
 
 
- 
+
+
 });
 
 
@@ -67,7 +70,7 @@ let PORT = process.env.PORT || 8080;
 
 
 
-app.listen(PORT, function(){
+app.listen(PORT, function () {
 
   console.log('App starting on port', PORT);
 
