@@ -1,9 +1,12 @@
+import  'dotenv/config';
+//console.log(process.env.DATABASE_URL);
 import express  from 'express';
 import bodyParser from 'body-parser';
 import { engine } from 'express-handlebars';
 import greet from './greet.js';
 import flash  from 'express-flash';
 import session from 'express-session';
+
 
 const app = express();
 
@@ -25,12 +28,14 @@ saveInitialized:false}));
 
 app.use(flash());
 
+
 const user=greet();
 
 
 app.get('/', function (req, res) {
     
  req.flash("error",  user.getError());
+
 
     res.render('index',{
        greeting: user.getGreeting(),
