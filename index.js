@@ -59,8 +59,12 @@ app.post('/names', function (req, res) {
   user.getError();
   res.redirect('/');
 
+});
 
-
+app.get("/greeted", function (req, res){
+res.render ('greeted',{
+usersGreeted: user.greeted()
+});
 
 });
 
