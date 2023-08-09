@@ -99,6 +99,11 @@ export default function greet() {
 		return count;
 	}
 
+	function  greeted(){
+           return  greetedNames;
+
+	}
+	
 	return {
 
 		setName,
@@ -106,6 +111,7 @@ export default function greet() {
 		getError,
 		setGreeting,
 		getGreeting,
-		getCount
+		getCount,
+		greeted
 	}
 }
