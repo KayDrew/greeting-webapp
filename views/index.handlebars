@@ -1,19 +1,34 @@
-<h1>Greeting In Three(3) Languages</h1>
+<div class="container">
+<a class="nav" href="/greeted">/Users Greeted </a>
+<h2>Greeting In Three(3) Languages</h2>
+
 {{#if messages.error}}
 <div class="error">
     <h1> {{messages.error}}</h1>
 </div>
 {{/if}}
+
 <form action="/names" method="POST">
-<input name="username" type="text"><br><br>
+<div class="nameClass">
+<input  class="nameField" name="username" type="text"><br><br>
+<h4 class="showCount">{{count}}</h4>
+</div>
+
+<div class="radioButtons">
 <input type="radio" name="language" value="Setswana"/><span>Setswana</span>
 <input type="radio" name="language" value="Swahili"/><span>Swahili</span>
 <input type="radio" name="language" value="IsiNdebele"/><span>IsiNdebele</span><br><br>
-<button type="submit" name="button">greet</button>
-<button type="submit" name="button">reset</button>
-<div>
-<p>{{greeting}}</p>
-<h2><span>Greeted: </span>{{count}}</h2>
 </div>
-<a href="/greeted">Users Greeted </a>
+
+<div class="buttons">
+<button class="submit" type="submit" name="button">greet</button>
+<button class="reset" type="submit" name="button">reset</button>
+</div>
+
+<p class="message">{{greeting}}</p>
+
+
 </form>
+
+</div>
+

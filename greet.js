@@ -17,9 +17,16 @@ export default function greet() {
 
 		if (input) {
 
-			if (regex.test(input.toUpperCase())) {
+			if (regex.test(input.trim())) {
+var cap = "";
+			var low = "";
+			for (let i = 0; i < input.length - 1; ++i) {
 
-					name = input.toUpperCase();
+				cap = input.charAt(0).toUpperCase();
+				low += input.charAt(i + 1).toLowerCase();
+			}
+			
+					name = cap+low;
 					error = "";
 
 			}
@@ -60,7 +67,7 @@ export default function greet() {
 				
 				if (!greetedNames.hasOwnProperty(name)) {
 					greetedNames[name]= 1;
-					console.log(greetedNames);
+					
 					count++;
 				}
 
@@ -104,6 +111,21 @@ export default function greet() {
 
 	}
 	
+	function getIndividual(name){
+
+const filteredGreetedNames={};
+
+if(greetedNames.hasOwnProperty(name)){
+
+filteredGreetedNames["name"]=name;
+filteredGreetedNames["count"]=greetedNames[name];
+console.log(filteredGreetedNames);
+return filteredGreetedNames;
+
+
+}
+}
+	
 	return {
 
 		setName,
@@ -112,6 +134,7 @@ export default function greet() {
 		setGreeting,
 		getGreeting,
 		getCount,
-		greeted
+		greeted,
+		getIndividual
 	}
 }

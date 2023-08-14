@@ -8,6 +8,7 @@ import flash from 'express-flash';
 import session from 'express-session';
 
 
+
 const app = express();
 
 
@@ -27,6 +28,12 @@ app.use(session({
   resave: false,
   saveInitialized: false
 }));
+
+
+// which db connection to use
+const connectionString=process.env.URL;
+
+//console.log(db);
 
 app.use(flash());
 
@@ -49,14 +56,17 @@ app.get('/', function (req, res) {
 }
 );
 
-app.post('/names', function (req, res) {
+app.post('/names', async function (req, res) {
 
   user.setName(req.body.username);
   let language = req.body.language;
 
   user.setGreeting(language);
-  console.log(user.getGreeting())
+ 
   user.getError();
+  
+//await db.none("insert into greetedNames('drew',4)");
+  
   res.redirect('/');
 
 });
@@ -64,6 +74,22 @@ app.post('/names', function (req, res) {
 app.get("/greeted", function (req, res){
 res.render ('greeted',{
 usersGreeted: user.greeted()
+});
+
+});
+
+
+app.get("/counter/:name", function (req, res){
+
+let username=req.params.name;
+
+
+let greetedUser=user.getIndividual(username);
+
+
+res.render("counter",{
+	name: greetedUser
+
 });
 
 });

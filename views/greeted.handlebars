@@ -1,8 +1,11 @@
 <div>
+<form  action="/counter" method="POST">
 <h1>Users Greeted</h1>
 <ol>
 {{#each usersGreeted }}
-<li>User {{@key}}, has been greeted {{@this}} times</li>
+<li><a href="/counter/{{@key}}" id="name"> {{@key}}</a></li>
 {{/each}}
 </ol>
+</form>
+<a  class="nav" href="/">Back</a>
 </div>
