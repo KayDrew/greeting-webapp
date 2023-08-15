@@ -130,7 +130,7 @@ res.redirect('/');
 
 
 
-let PORT = process.env.PORT || 5432;
+let PORT = 5432;
 
 
 
