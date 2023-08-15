@@ -6,7 +6,9 @@ import { engine } from 'express-handlebars';
 import greet from './greet.js';
 import flash from 'express-flash';
 import session from 'express-session';
+import pkg from 'pg';
 
+import setUsers from './sql.js';
 
 
 const app = express();
@@ -22,6 +24,7 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
+app.use(express.json());
 
 app.use(session({
   secret: "no secret",
@@ -29,9 +32,10 @@ app.use(session({
   saveInitialized: false
 }));
 
+let setGreeted= new setUsers();
+
 
 // which db connection to use
-const connectionString=process.env.URL;
 
 //console.log(db);
 
@@ -41,22 +45,28 @@ app.use(flash());
 const user = greet();
 
 
-app.get('/', function (req, res) {
+app.get('/', async function (req, res) {
 
   req.flash("error", user.getError());
+ // setGreeted.setCount();
+  setGreeted.setCount();
+  let count= setGreeted.getCount()
+ 
+ //console.log(count);
 
 
-  res.render('index', {
+    
+  res.render('index',{
     greeting: user.getGreeting(),
     title: "Home",
-    count: user.getCount()
+    count: count
 
   });
 
 }
 );
 
-app.post('/names', async function (req, res) {
+app.post('/names',async function (req, res) {
 
   user.setName(req.body.username);
   let language = req.body.language;
@@ -65,15 +75,29 @@ app.post('/names', async function (req, res) {
  
   user.getError();
   
-//await db.none("insert into greetedNames('drew',4)");
+  let name=user.getName();
+  let count=user.getCount();  
   
+
+setGreeted.setUser(name);
+
   res.redirect('/');
 
 });
 
-app.get("/greeted", function (req, res){
+
+
+
+
+app.get("/greeted",  function (req, res){
+	
+	
+setGreeted.setNames();
+
+	
 res.render ('greeted',{
-usersGreeted: user.greeted()
+usersGreeted: setGreeted.getNames()
+
 });
 
 });
@@ -82,6 +106,8 @@ usersGreeted: user.greeted()
 app.get("/counter/:name", function (req, res){
 
 let username=req.params.name;
+
+console.log(user.getIndividual(username));
 
 
 let greetedUser=user.getIndividual(username);
@@ -94,9 +120,17 @@ res.render("counter",{
 
 });
 
+app.post("/deleteData", function(req,res){
+
+setGreeted.deleteData();
+
+res.redirect('/');
+
+});
 
 
-let PORT = process.env.PORT || 8080;
+
+let PORT = process.env.PORT || 5432;
 
 
 

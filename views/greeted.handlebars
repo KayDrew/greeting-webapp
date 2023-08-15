@@ -3,7 +3,7 @@
 <h1>Users Greeted</h1>
 <ol>
 {{#each usersGreeted }}
-<li><a href="/counter/{{@key}}" id="name"> {{@key}}</a></li>
+<li><a href="/counter/{{this.name}}" id="name"> {{this.name}}</a></li>
 {{/each}}
 </ol>
 </form>

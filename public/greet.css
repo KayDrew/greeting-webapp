@@ -11,6 +11,7 @@ padding:30px;
 border-radius:15px;
 font-family: monospace ;
 color: rgba(0,0,0,0.65);
+justify-content: center;
 }
 
 .nav {
@@ -19,7 +20,7 @@ text-decoration: none;
 color:#E0F0ED;
 background-color: #235680;
 padding:4px;
-margin-bottom: 30px;
+margin-bottom:60px;
 
 }
 
@@ -71,7 +72,7 @@ font-family:courier;
 margin-top: 5px;
 }
 
-.radioButtons{
+.radioButtons,.buttons{
 display: flex;
 margin:10px;
 }
@@ -89,6 +90,8 @@ border-radius: 5px;
 .submit {
 background-color: #235680;
 box-shadow: 0px 0px  1.5px 1.5px rgba(0,0,255,0.3);
+padding: 5.7%;
+width:90px;
 
 }
 
@@ -96,6 +99,7 @@ box-shadow: 0px 0px  1.5px 1.5px rgba(0,0,255,0.3);
 background-color: #E0F0ED;
 color:#235680;
 box-shadow: 0px 0px  1.5px 1.5px rgba(255,255,255,0.8);
+width:90px;
 }
 
 .message{
