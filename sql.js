@@ -1,7 +1,9 @@
 import pkg from 'pg';
 
 
+
 export  default    function setUsers(){
+	
 	
 const { Pool } = pkg;
 
@@ -14,10 +16,11 @@ let count=0;
 let names={};
 
 
-async function setUser(name){
+async function setUser(name,language){
 
 let username=name;
 let names1={};
+
 try {
 	const result=  await itemsPool.query(  `SELECT * FROM  users.users`  );         
         
@@ -33,7 +36,8 @@ username="";
 }
 }
 
-	if(username){
+	if(username && language){
+		
         const newItem = await itemsPool.query(
             `INSERT INTO users.users (name) VALUES ($1)`, [name]
              );
@@ -49,14 +53,18 @@ username="";
     
     async function setCount(){
     	
-    try {
+try {
 	
         const items = await itemsPool.query(
             `SELECT * FROM  users.users`           
         );
         
         let allItems= items;
+        
+      
         count=allItems.rows.length;
+        
+        
        // console.log(count);
         
  
@@ -79,29 +87,36 @@ const result=      await itemsPool.query(
         );
         	
      names= result.rows;
+     //console.log(names);
       
+
+ 
+//console.log(names);
     } catch (error) {
         console.log(error);
         res.status(500).send(error.message)
     } 
+
+
+//return names;
 
 
 }
 
 
 async function deleteData(){
-	
 try {
          await itemsPool.query(
             `DELETE  FROM  users.users`           
         );
-
+//console.log(names);
     } catch (error) {
         console.log(error);
         res.status(500).send(error.message)
     } 
 
 }
+
 
 async function  getNames(){
 
