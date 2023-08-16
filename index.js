@@ -122,12 +122,7 @@ app.post("/deleteData", async function(req,res,next){
 
 let result= await setGreeted.deleteData();
 
-res.render('index', {
-    greeting: user.getGreeting(),
-    title: "Home",
-    count: count
-
-  });
+res.redirect("/");
 
 });
 
