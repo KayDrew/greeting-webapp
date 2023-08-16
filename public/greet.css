@@ -2,7 +2,7 @@ body{
     background-color: #235680;
 }
 .container{
-width:80%;
+width:90%;
 margin:0 auto;
 background: #B0D5D5;
 font-family: calibri;
@@ -32,6 +32,7 @@ margin-top:10%;
 
 .submit{
     padding: 5.5%;
+    width:90px;
 }
 }
 
