@@ -19,9 +19,8 @@ async function setUser(name){
 let username=name;
 let names1={};
 try {
-	  await itemsPool.query(
-            `SELECT * FROM  users.users`           
-        ).then(result=>{
+	const result=  await itemsPool.query(  `SELECT * FROM  users.users`  );         
+        
         	
      names1= result.rows;
      
@@ -34,13 +33,10 @@ username="";
 }
 }
 
-     });
-	
 	if(username){
         const newItem = await itemsPool.query(
             `INSERT INTO users.users (name) VALUES ($1)`, [name]
-            
-        );
+             );
         }
         
     } catch (error) {
@@ -53,16 +49,16 @@ username="";
     
     async function setCount(){
     	
-try {
+    try {
 	
-        const allItems = await itemsPool.query(
+        const items = await itemsPool.query(
             `SELECT * FROM  users.users`           
-        ).then(result=>{
+        );
         
-        let allItems= result;
+        let allItems= items;
         count=allItems.rows.length;
        // console.log(count);
-        });
+        
  
     } catch (error) {
         console.log(error);
@@ -78,47 +74,28 @@ async function  setNames(){
 	
 	
 try {
-         await itemsPool.query(
-            `SELECT * FROM  users.users`           
-        ).then(result=>{
+const result=      await itemsPool.query(
+         `SELECT * FROM  users.users`           
+        );
         	
      names= result.rows;
-     //console.log(names);
       
-
-});
-        
-        
- 
-
-//console.log(names);
     } catch (error) {
         console.log(error);
         res.status(500).send(error.message)
     } 
-
-
-//return names;
 
 
 }
 
 
 async function deleteData(){
+	
 try {
          await itemsPool.query(
             `DELETE  FROM  users.users`           
-        ).then(result=>{
-        	
-    
-      
+        );
 
-});
-        
-        
- 
-
-//console.log(names);
     } catch (error) {
         console.log(error);
         res.status(500).send(error.message)
@@ -126,13 +103,12 @@ try {
 
 }
 
-
-function  getNames(){
+async function  getNames(){
 
 return names;
 }
 
-function getCount(){
+async function getCount(){
 
 return count;
 }
