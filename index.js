@@ -42,21 +42,19 @@ let setGreeted= new setUsers();
 app.use(flash());
 
 
-const user = greet();
+const user = await greet();
 
 
-app.get('/', async function (req, res) {
+app.get('/',async function (req, res,next) {
 
   req.flash("error", user.getError());
  // setGreeted.setCount();
-  setGreeted.setCount();
-  let count= setGreeted.getCount()
+  let result= await setGreeted.setCount();
+  let count= await setGreeted.getCount()
  
  //console.log(count);
-
-
     
-  res.render('index',{
+  res.render('index', {
     greeting: user.getGreeting(),
     title: "Home",
     count: count
@@ -66,17 +64,17 @@ app.get('/', async function (req, res) {
 }
 );
 
-app.post('/names',async function (req, res) {
+app.post('/names',async function (req, res,next) {
 
   user.setName(req.body.username);
   let language = req.body.language;
 
-  user.setGreeting(language);
+ await user.setGreeting(language);
  
   user.getError();
   
-  let name=user.getName();
-  let count=user.getCount();  
+  let name=await user.getName();
+  let count=await user.getCount();  
   
 
 setGreeted.setUser(name);
@@ -89,25 +87,24 @@ setGreeted.setUser(name);
 
 
 
-app.get("/greeted",  function (req, res){
+app.get("/greeted", async function (req, res,next){
 	
 	
-setGreeted.setNames();
+await setGreeted.setNames();
 
-	
 res.render ('greeted',{
-usersGreeted: setGreeted.getNames()
+ usersGreeted:await setGreeted.getNames()
 
 });
 
 });
 
 
-app.get("/counter/:name", function (req, res){
+app.get("/counter/:name",async function (req, res,next){
 
 let username=req.params.name;
 
-console.log(user.getIndividual(username));
+//console.log(user.getIndividual(username));
 
 
 let greetedUser=user.getIndividual(username);
@@ -120,17 +117,23 @@ res.render("counter",{
 
 });
 
-app.post("/deleteData", function(req,res){
+app.post("/deleteData", async function(req,res,next){
 
-setGreeted.deleteData();
 
-res.redirect('/');
+let result= await setGreeted.deleteData();
+
+res.render('index', {
+    greeting: user.getGreeting(),
+    title: "Home",
+    count: count
+
+  });
 
 });
 
 
 
-let PORT = 5432;
+let PORT = process.env.PORT || 5432;
 
 
 
