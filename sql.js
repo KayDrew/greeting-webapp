@@ -23,7 +23,8 @@ let count=1;
 
 try {
 	const result=  await itemsPool.query(  `SELECT * FROM  users.name`  );              
-       let len= result.rows; 	
+        
+let len=result.rows;	
      names1= result.rows[0];
      
      
