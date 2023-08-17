@@ -40,7 +40,7 @@ if(username && language){
      	
      	if(username && language){
      	
-     for(let i=0;i<names1.length;++i){
+     for(let i=0;i<len.length;++i){
 
 var user=names1[i];
 
