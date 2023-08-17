@@ -23,11 +23,11 @@ let count=1;
 
 try {
 	const result=  await itemsPool.query(  `SELECT * FROM  users.name`  );              
-        	
+       let len= result.rows; 	
      names1= result.rows[0];
      
      
-     if(names1.length<1){
+     if(len.length<1){
 
 if(username && language){
 		
