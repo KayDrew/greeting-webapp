@@ -1,14 +1,6 @@
-import pkg from 'pg';
 
-
-export  default    function setUsers(){
+export  default    function setUsers(db){
 	
-const { Pool } = pkg;
-
-const itemsPool = new Pool({
-    connectionString: process.env.URL,
-    ssl: true
-});
 
 let count=0;
 let names={};
@@ -22,17 +14,16 @@ let names1={};
 let count=1;
 
 try {
-	const result=  await itemsPool.query(  `SELECT * FROM  users.name`  );              
+	const result=  await db.manyOrNone(  `SELECT * FROM  users.name`  );              
         
-let len=result.rows;	
-     names1= result.rows[0];
+let len=result;	
      
      
      if(len.length<1){
 
 if(username && language){
 		
-        const newItem = await itemsPool.query(
+        const newItem = await db.none(
             `INSERT INTO users.name (name,count) VALUES ($1,$2)`, [name,count]
              );
         }
@@ -48,7 +39,7 @@ var user=len[i];
      if(username===user.name){
      	
      count=user.count+1;
- const update=await itemsPool.query(`UPDATE users.name SET  count=$2 WHERE name=$1`,[username, count]);
+ const update=await db.none(`UPDATE users.name SET  count=$2 WHERE name=$1`,[username, count]);
 username="";
 }
 }
@@ -57,7 +48,7 @@ username="";
 
 	if(username && language){
 		
-        const newItem = await itemsPool.query(
+        const newItem = await db.none(
             `INSERT INTO users.name (name,count) VALUES ($1,$2)`, [name,count]
              );
         }
@@ -76,13 +67,13 @@ username="";
     	
 try {
 	
-        const items = await itemsPool.query(
+        const items = await db.manyOrNone(
             `SELECT * FROM  users.name`           
         );
         
         let allItems= items;
         
-       count=allItems.rows.length;
+       count=allItems.length;
              
     } catch (error) {
         console.log(error);
@@ -95,11 +86,11 @@ try {
 async function  setNames(){
 	
 try {
-const result=      await itemsPool.query(
+const result= await db.manyOrNone(
          `SELECT name FROM  users.name`           
         );
         	
-     names= result.rows;
+     names= result;
      
     } catch (error) {
         console.log(error);
@@ -113,7 +104,7 @@ async function deleteData(){
 	
 try {
          
-           await itemsPool.query(
+           await db.none(
             `DELETE  FROM  users.name`           
         );
         
@@ -139,8 +130,8 @@ async  function  setIndividual(name){
 	
 		
 try {
-	const result=  await itemsPool.query(  `SELECT * FROM  users.name WHERE name=$1` ,[name]);             	
-     individual= result.rows[0];
+	const result=  await db.oneOrNone(  `SELECT * FROM  users.name WHERE name=$1` ,[name]);             	
+     individual= result;
      
 console.log(individual);
 
