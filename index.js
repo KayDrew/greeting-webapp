@@ -6,11 +6,19 @@ import { engine } from 'express-handlebars';
 import greet from './greet.js';
 import flash from 'express-flash';
 import session from 'express-session';
-import pkg from 'pg';
+import pkg from 'pg-promise';
 
 import setUsers from './sql.js';
 
+const connectionString = process.env.URL;
 
+
+const Pool = pkg();
+
+const db = Pool({
+    connectionString,
+    ssl: true
+});
 const app = express();
 
 
@@ -32,7 +40,7 @@ app.use(session({
   saveInitialized: false
 }));
 
-let setGreeted= new setUsers();
+let setGreeted= new setUsers(db);
 
 app.use(flash());
 
