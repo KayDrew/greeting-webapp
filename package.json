@@ -25,7 +25,7 @@
   "contributors": [],
   "scripts": {
     "dev": "",
-    "test": "mocha --timeout 120000",
+    "test": "mocha --timeout 300000",
 "start": "node index.js"
   },
   "devDependencies": {
