@@ -1,76 +1,16 @@
 
 export  default    function setUsers(db){
 	
-let names={};
-let individual={};
-let name = "";
-	let error = "";
-	let greetedNames = {};
-	let regex = /^([a-zA-Z]{3,})$/;
-	let greeting = "";
-	let count = 0;
-	let languages = {
-		"Swahili": "Habari",
-		"Setswana": "Dumela",
-		"IsiNdebele": "Akwande"
-	}
+    	let count=0;
+    let names={};
+    let individual={};
+    
 
-async function setUser(req,res,next){
+async function setUser(name,language){
 	
-let names1={};
-let countUser=1;
- let input=req.body.username;
- let language = req.body.language;
- 
-//check if input is empty
-if(input){
+let countUser=1; 
 
- //check if input passes regex test
-if (regex.test(input.trim())) {
-	
-	//trim input
-var trimmed=input.trim();
 
-var cap = "";
-var low = "";
-
-for (let i = 0; i < trimmed.length - 1; ++i) {
-
-	cap = trimmed.charAt(0).toUpperCase();
-   low += trimmed.charAt(i + 1).toLowerCase();
-}
-	
-	//capitalise first letter, make all others small letters
-	name = cap+low;
-    error = "";
-
-			}
-
-			else {
-				error = "Name should only contain letters";
-				name = "";
-			}
- 
- } else{
-error ="Please, enter a name";
-
-}
- 
- 
- 
- 
- if (languages.hasOwnProperty(language)) {
-
-				greeting = languages[language] + " " + name;
-				} else{
-
-error = "Please select a language";
-greeting = "";
-}
- 
- 
- 
- 
   //sql code
 try {
 	
@@ -115,20 +55,18 @@ try {
         }
         
         }
-        
-        
-          res.redirect('/');
+               
+          
     } catch (error) {
         console.log(error);
-        res.status(500).send(error.message)
+        
     }
     
   }
+        
     
-    
-    
- async function getCount(req,res,next){
-    	
+ async function getCount(){
+
   try {
 	
         const items = await db.manyOrNone(
@@ -138,24 +76,17 @@ try {
      let allItems= items;
       count=allItems.length;
        
-    req.flash("error", error);
-    res.render('index', {
-    greeting: greeting,
-    title: "Home",
-    count: count
-}
-
-);
              
     } catch (error) {
         console.log(error);
-        res.status(500).send(error.message)
+        
     }    
     
+    return  count;
 }   
 
 
-async function  getNames(req,res,next){
+async function  getNames(){
 	
 try {
 const result= await db.manyOrNone(
@@ -164,20 +95,19 @@ const result= await db.manyOrNone(
         	
      names= result;
      
-     error="";     
-     res.render("greeted",{ usersGreeted:names});
      
     } catch (error) {
         console.log(error);
-        res.status(500).send(error.message)
+        
     } 
 
+return names;
 
 }
 
 
 
-async function deleteData(req,res,next){
+async function deleteData(){
 	
  try {
          
@@ -185,11 +115,11 @@ async function deleteData(req,res,next){
             `DELETE  FROM  users.name`         
         );
         
-        res.redirect("/");
+       
         
     } catch (error) {
         console.log(error);
-        res.status(500).send(error.message)
+       
     } 
 
 
@@ -197,19 +127,14 @@ async function deleteData(req,res,next){
 
 
 
-async  function  getIndividual(req,res,next){
+async  function  getIndividual(username){
 	
-	let username=req.params.name;
 	
   try {
   	
 	const result=  await db.oneOrNone(  `SELECT * FROM  users.name WHERE name=$1` ,[username]);             	
      individual= result;
      
-     res.render("counter",{
-	name: individual
-
-});
     
      }catch(err){
      	
