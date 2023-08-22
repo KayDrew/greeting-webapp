@@ -28,22 +28,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Node.js 14.x
+      - name: Set up Node.js 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 16.x
 
       - name: Install dependencies
         run: npm install
 
-      - name: migrate database
-        run: node migrate.js
+    
         env:
-          DBURL: "postgres://drew:83T1HLlmlA4kmZHoFDBc61ehHYdaJncu@dpg-cj7u79sl975s73eh0itg-a.oregon-postgres.render.com/usersgreeted"
+          URL: "postgres://drew:83T1HLlmlA4kmZHoFDBc61ehHYdaJncu@dpg-cj7u79sl975s73eh0itg-a.oregon-postgres.render.com/usersgreeted"
 
       - name: Run the mock tests function
         run: npm test
         env:
-          DBURL: postgres://drew:83T1HLlmlA4kmZHoFDBc61ehHYdaJncu@dpg-cj7u79sl975s73eh0itg-a.oregon-postgres.render.com/usersgreeted
+          URL: postgres://drew:83T1HLlmlA4kmZHoFDBc61ehHYdaJncu@dpg-cj7u79sl975s73eh0itg-a.oregon-postgres.render.com/usersgreeted
 
 
