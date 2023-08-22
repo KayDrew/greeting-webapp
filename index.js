@@ -6,6 +6,7 @@ import flash from 'express-flash';
 import session from 'express-session';
 import pkg from 'pg-promise';
 import setUsers from './sql.js';
+import  routes from './routes/routes.js';
 
 const connectionString = process.env.URL;
 const Pool = pkg();
@@ -33,13 +34,14 @@ app.use(session({
 }));
 
 
-let setGreeted= setUsers(db);
+const setGreeted= setUsers(db);
+const getRoutes= routes(setGreeted);
 
-app.get('/',setGreeted.getCount);
-app.post('/names',setGreeted.setUser);
-app.get("/greeted", setGreeted.getNames);
-app.get("/counter/:name",setGreeted.getIndividual);
-app.post("/deleteData", setGreeted.deleteData);
+app.get('/',getRoutes.getCount);
+app.post('/names',getRoutes.setAllUsers);
+app.get("/greeted", getRoutes.getUserNames);
+app.get("/counter/:name",getRoutes.getIndividualUser);
+app.post("/deleteData", getRoutes.deleteUsers);
 
 let PORT = process.env.PORT || 5432;
 
