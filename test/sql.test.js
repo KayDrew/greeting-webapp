@@ -6,7 +6,7 @@ const connectionString = process.env.URL;
 const Pool = pkg();
 const db = Pool({
     connectionString,
-    ssl: true
+    ssl: false
 });
 
 let user= userData(db);
