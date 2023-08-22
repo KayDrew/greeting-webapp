@@ -38,16 +38,10 @@ describe('The greeting web app',async function(){
                           
    let arr=[];
                             
-  try {
+  
                  	
        await user.setUser("Reggie","Swahili");
        arr=await user.getNames();
-       
-           }catch(err){
-
-        console.log(err);
-}
-
         assert.equal("Reggie",arr[0].name);
 
     });
@@ -58,16 +52,11 @@ describe('The greeting web app',async function(){
      	
      let individual={};
 
-     try {
+     
             	
       await user.setUser("Reggie","Swahili");
       await user.setUser("Reggie","Setswana");
       individual =await user.getIndividual("Reggie");
-       
-           }catch(err){
-
-       console.log(err);
-}
      	
        assert.equal(2,individual.count);
 });
