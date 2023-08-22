@@ -14,7 +14,18 @@ let user= userData(db);
 describe('The greeting web app',async function(){
 	
 
-   
+   beforeEach(async function () {
+	
+    try {
+        	
+       await user.deleteData();
+           }catch(err){
+
+         console.log(err);
+}
+        
+}  );
+      
 
  it('should return the total number of the users that have been greeted', async function(){
        assert.equal(0, await user.getCount());
